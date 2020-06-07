@@ -5,7 +5,7 @@
 命令行运行
 ```
 pip install -r requirements.txt
-python jdCake.py
+python jdCake.py cookies.json
 ```
 ## Note
 - 第一次使用需要京东APP扫码登录，后面会保存cookie以供下次使用🍪

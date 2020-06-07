@@ -11,10 +11,13 @@ import json
 import os
 from pprint import pprint
 import platform
+import sys
 
 import requests
 from PIL import Image
 from pyzbar import pyzbar
+
+cook_file = sys.argv[1]
 
 def qrcode_decode(image):
     zbar = pyzbar.decode(image)
@@ -63,7 +66,7 @@ def qrCodeTicketValidation(session, ticket):
 
 def saveCookies(session):
     cookies = session.cookies.get_dict()
-    with open("cookies.json", "w") as f:
+    with open(cook_file, "w") as f:
         json.dump(cookies, f, indent=4)
 
 def getUserInfo(session):
@@ -272,9 +275,9 @@ def main():
         "User-Agent": "jdapp",
         "referer": "https://passport.jd.com/new/login.aspx?ReturnUrl=http%3A%2F%2Fhome.jd.com%2F"
     })
-    if os.path.exists("cookies.json"):
+    if os.path.exists(cook_file):
         cookies = None
-        with open("cookies.json") as f:
+        with open(cook_file) as f:
             cookies = json.load(f)
         session.cookies.update(cookies)
     else:
